@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import ReactDom from 'react-dom';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
@@ -16,27 +17,32 @@ class App extends React.Component{
 	constructor(props){
 		super(props);
 
-	this.state = {videos: []}
+	this.state = {videos: [], selectedVideo: null}
 
-	YTSearch({key: KEY, term: 'Bane'}, (data) => {
-		//console.log(data);
-		this.setState({ videos: data})
-	} );
+	this.videoSearch('Ultra Instinct First')
 
 
 	}
 
 
+	videoSearch(term) {
+		YTSearch({key: KEY, term: term}, (data) => {
+			this.setState({ videos: data,selectedVideo: data[0]})
+		} );
+	}
 
 
 
 	render(){
+
+		const videoSearch = _.debounce((term) => {this.videoSearch(term)},300)
 		return (
 			<div>
-				<VideoDetail video = {this.state.videos[0]}/>
-				<SearchBar />
+				<SearchBar onSearchTermChange = {videoSearch} />
 
-				<VideoList videos = {this.state.videos} />
+				<VideoDetail video = {this.state.selectedVideo}/>
+
+				<VideoList videos = {this.state.videos} onVideoSelect = {selectedVideo => this.setState({selectedVideo}) }  />
 			</div>
 
 			);
