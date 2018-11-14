@@ -1,4 +1,5 @@
 import React from 'react'
+import Parent from './parent';
 
 class SearchBar extends React.Component{
 	constructor(props){
@@ -18,8 +19,8 @@ class SearchBar extends React.Component{
 			<input value = {this.state.term} onChange = {event => this.onInputChange(event.target.value)} />
 			Value of Input : {this.state.term}
 			{console.log(event)}
+			<Parent/>
 
-			
 			</div>
 		);
 	}

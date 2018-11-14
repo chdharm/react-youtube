@@ -2,6 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import ReactDom from 'react-dom';
 import SearchBar from './components/search_bar';
+import Test from './components/test';
+import Test2 from './components/test2';
+
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail';
 
@@ -38,6 +41,9 @@ class App extends React.Component{
 		const videoSearch = _.debounce((term) => {this.videoSearch(term)},300)
 		return (
 			<div>
+			    <Test test= "sameera"/>
+			    			    <Test2 test= "sameera"/>
+
 				<SearchBar onSearchTermChange = {videoSearch} />
 
 				<VideoDetail video = {this.state.selectedVideo}/>
